@@ -155,12 +155,9 @@ df['End time'] = pd.to_datetime(df['End time'], format='%H:%M:%S').dt.time
 
 df["Mtg Start"] = df["Mtg Start"].apply(lambda x: x if pd.isnull(x) else (str(int(str(
     x)[0:2])-12)+":00:00 PM" if int(str(x)[0:2]) > 12 else str(int(str(x)[0:2]))+":00:00 AM"))
-# df["Mtg Start"] = df["Mtg Start"].apply(
-#     lambda x: "0"+str(x) if len(str(x)) == 10 else x)
+
 df["End time"] = df["End time"].apply(lambda x: x if pd.isnull(x) else (str(int(str(
     x)[0:2])-12)+":00:00 PM" if int(str(x)[0:2]) > 12 else str(int(str(x)[0:2]))+":00:00 AM"))
-# df["End time"] = df["End time"].apply(
-#     lambda x: "0"+str(x) if len(str(x)) == 10 else x)
 
 df["Mtg Start"] = df["Mtg Start"].apply(lambda x: x if str(x) == "NaT" else (
     str(x)[:-2]+"PM" if (int(str(x)[0]) >= 12 and int(str(x)[0]) <= 7) else str(x)))
@@ -171,13 +168,6 @@ df["Mtg Start"] = df["Mtg Start"].apply(lambda x: x if str(x) == "NaT" else (
     str(x)[:-2]+"AM" if (int(str(x)[0]) >= 8 and int(str(x)[0]) <= 11) else str(x)))
 df["End time"] = df["End time"].apply(lambda x: x if str(x) == "NaT" else (
     str(x)[:-2]+"AM" if (int(str(x)[0]) >= 8 and int(str(x)[0]) <= 11) else str(x)))
-
-# df["End time"] = df["End time"].apply(lambda x: str(x)[:-2]+"PM" if (x!="NaT" and (int(str(x)[0]) < 8)) else str(x))
-
-# for i in range(len(df["Mtg Start"])):
-#     if(str(df["Mtg Start"][i])=='NaT'):
-#         df["Mtg Start"][i]="Hello"
-#         print(i)
 
 
 df["Mtg Start"] = df["Mtg Start"].apply(
@@ -216,9 +206,6 @@ def getPsrn(x):
     elif(phd_psrn.index[phd_psrn["name"] == x].size != 0):
         s = phd_psrn.iloc[phd_psrn.index[phd_psrn["name"] == x]
                           [0]]["SYSTEM ID"]
-#         year=s[:4]
-#         idno=s[-5:-1]
-#         s="###"+year+idno
     return s
 
 
@@ -246,7 +233,6 @@ df2["ROOM"], df2["COURSETITLE"], df2["Display Name"], df2["Subject"], df2["Catal
 IcMap = {}
 for i in range(len(df2["Access"])):
     if(df2["Access"][i] == "Y"):
-        #         print(df2["Instructors ID"][i]+" => "+df2["Access"][i])
         if(df2["Instructors ID"][i] != ""):
             IcMap[df2["Course ID"][i]] = df2["Instructors ID"][i]
 
@@ -287,3 +273,5 @@ df2["Component"] = df2["Component"].apply(
     lambda x: "LEC" if str(x) == "TUT" else str(x))
 
 df2.to_excel("output_Format2.xlsx", index=False)
+
+
