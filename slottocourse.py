@@ -63,4 +63,4 @@ for a in ttcourse:
 
 print(outdf)
 
-outdf.to_json("tt_parsed_slottocourse.json", orient='records')
+outdf.to_json("tt_parsed_slottocourse.json", orient='table')
